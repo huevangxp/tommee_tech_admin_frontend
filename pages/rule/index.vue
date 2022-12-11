@@ -11,20 +11,15 @@
             <v-btn color="primary" to="/rule/add"
               >Create Rule</v-btn
             >
-            <v-btn color="success">Export To Excel</v-btn>
           </div>
         </div>
       </div>
       <div>
-        <!-- {{getUser}} -->
-  
         <v-data-table
           :headers="headers"
-          :items="item"
+          :items="rule"
           :items-per-page="5"
-          :options.sync="options"
-          class="elevation-1"
-        >
+          class="elevation-1">
           <template #[`item.actions`]="{ item }">
             <v-btn color="red" dark icon text @click="deleteUser(item.id)">
               <v-icon>mdi-delete</v-icon>
@@ -43,35 +38,21 @@
     name: 'User',
     data() {
       return {
-        options: {},
-        showModal: false,
-        deleteModal: false,
-        loading: false,
-        imageModal: false,
-        image: null,
-        deletedId: null,
         headers: [
-          {
-            text: 'Name',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
           { text: 'Title', value: 'title' },
-          { text: 'Description', value: 'des' },
-          { text: 'file', value: 'file' },
+          { text: 'Description', value: 'description' },
           { text: '', value: 'actions' },
           ],
-        item:[
-          {
-            name: 'Frozen Yogurt',
-            title: 'hueavng',
-            des:"i what the fuck",
-            file:'rule '
-            },
-        ]
       }
     },
+    mounted() {
+        this.$store.dispatch('rule/getRule')
+    },
+    computed: {
+        rule() {
+            return this.$store.state.rule.rule
+        }
+    }
   }
   </script>
   

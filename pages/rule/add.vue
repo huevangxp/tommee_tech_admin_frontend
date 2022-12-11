@@ -6,6 +6,7 @@
           <v-row>
             <v-col cols="12">
               <v-text-field
+                v-model="rule.title"
                 outlined
                 dense
                 hide-details="auto"
@@ -14,6 +15,7 @@
             </v-col>
             <v-col cols="12">
               <v-textarea
+                v-model="rule.description"
                 counter="300"
                 outlined
                 dense
@@ -22,8 +24,8 @@
               ></v-textarea>
             </v-col>
             <v-col cols="12" class="d-flex justify-end" >
-              <v-btn class="red mr-5" dark>Cancel</v-btn>
-              <v-btn class="success" dark>Save</v-btn>
+              <v-btn class="red mr-5" dark to="/rule">Cancel</v-btn>
+              <v-btn class="success" dark @click="save">Save</v-btn>
             </v-col>
           </v-row>
         </v-card-text>
@@ -32,8 +34,21 @@
   </template>
   
   <script>
-  export default {
-  
+export default {
+    name:'AddRulePage',
+    data() {
+        return {
+            rule: {
+                title: '',
+                description:''
+            }
+        }
+    },
+    methods: {
+        save() {
+            this.$store.dispatch('rule/postRule', {...this.rule})
+        }
+    }
   }
   </script>
   

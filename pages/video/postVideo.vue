@@ -6,6 +6,7 @@
         <v-row>
           <v-col cols="12">
             <v-text-field
+              v-model="learn.title"
               outlined
               dense
               hide-details="auto"
@@ -13,35 +14,43 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-textarea
-              counter="100"
-              outlined
-              height="100"
-              dense
-              placeholder="Description"
-              hide-details="auto"
-            ></v-textarea>
+            <v-file-input
+              id="id"
+              v-model="learn.video"
+              type="file"
+              @change="onFileChange"
+            ></v-file-input>
           </v-col>
-          <v-col cols="12">
-            <video width="100%" controls>
-              <source src="mov_bbb.mp4" type="video/mp4" />
-              <source src="mov_bbb.ogg" type="video/ogg" />
-              Your browser does not support HTML video.
-            </video>
+          <v-col cols="12" class="d-flex justify-end">
+            <v-btn class="red mr-5" dark to="/video">Cancel</v-btn>
+            <v-btn class="success" dark @click="save">Save</v-btn>
           </v-col>
-          <v-col cols="12" class="d-flex justify-end" >
-              <v-btn class="red mr-5" dark>Cancel</v-btn>
-              <v-btn class="success" dark>Save</v-btn>
-            </v-col>
         </v-row>
-
       </v-card-text>
     </v-card>
   </v-container>
 </template>
-
 <script>
 export default {
   name: 'PostVideoPage',
+  data() {
+    return {
+      learn: {
+        title: '',
+        video: '',
+      },
+    }
+  },
+  methods: {
+    save() {
+      this.$store.dispatch('video/postVideo', this.learn)
+    },
+  },
+  onFileChange(e) {
+      if (e) {
+        this.url = URL.createObjectURL(e)
+        this.learn.course = this.url
+      }
+    },
 }
 </script>

@@ -19,6 +19,10 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
+
+  publicRuntimeConfig: {
+    apiUrl:'http://localhost:8080'
+  },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -34,7 +38,16 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     'cookie-universal-nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    [
+      '@nuxtjs/toast',
+      {
+        duration: 3000,
+        position: 'top-right',
+        type: 'error',
+        closeOnSwipe: false,
+      },
+    ],
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
